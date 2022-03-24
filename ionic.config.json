@@ -1,0 +1,7 @@
+{
+  "name": "Foodie panda",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
