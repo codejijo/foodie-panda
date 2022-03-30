@@ -9,6 +9,7 @@ name: Deploy to Firebase Hosting on PR
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: production
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
