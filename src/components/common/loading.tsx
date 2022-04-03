@@ -1,7 +1,7 @@
 const Loading = () => {
 
     return (
-        <div className="absolute transition-all ease-in-out delay-300 duration-300 w-full h-full flex justify-center items-center bg-black bg-opacity-50">
+        <div className="absolute transition-all ease-in-out delay-300 duration-300 w-full h-full flex justify-center items-center bg-black bg-opacity-50 z-50">
             <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" style={{ margin: "auto", display: "block" }} width="150px" height="150px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
                 <g transform="rotate(0 50 50)">
                     <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#ffcc29">

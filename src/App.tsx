@@ -1,11 +1,14 @@
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useContext, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { Route, Routes } from "react-router-dom";
 import Loading from "./components/common/loading";
+import Layout from "./components/Layout";
 import { loggedIn, logout } from "./context/actions";
 import { getUser } from "./context/selectors";
 import { AppContext } from "./context/state";
 import { auth, db } from "./firebase";
+import Home from "./pages/Home";
 import Login from "./pages/Login";
 
 function App() {
@@ -34,9 +37,11 @@ function App() {
   if (loading) return <Loading />
   if (!user) return <Login />;
   return (
-    <div className="App">
-
-    </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+      </Route>
+    </Routes>
   );
 }
 

@@ -5,8 +5,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'primary-yellow' : "#ffcc29",
-        'primary-black' : "#211f1f"
+        'pri-yellow' : "#ffcc29",
+        'pri-black' : "#211f1f",
+        'pri-red' : "#ED3338",
+        'pri-blue' : "#219EBC",
+        'pri-skyblue' : "#8ECAE6",
       }
     },
   },
