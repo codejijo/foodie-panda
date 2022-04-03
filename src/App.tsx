@@ -1,24 +1,47 @@
-import logo from './assets/logo.svg';
-import './styles/App.css';
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { useContext, useEffect } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { Route, Routes } from "react-router-dom";
+import Loading from "./components/common/loading";
+import Layout from "./components/Layout";
+import { loggedIn, logout } from "./context/actions";
+import { getUser } from "./context/selectors";
+import { AppContext } from "./context/state";
+import { auth, db } from "./firebase";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
 
 function App() {
+  const [user, loading] = useAuthState(auth);
+  const { state, dispatch } = useContext(AppContext);
+  const userData = getUser(state);
+
+  useEffect(() => {
+    if (user) {
+      setDoc(
+        doc(db, "users", user.uid),
+        {
+          name: user?.displayName,
+          email: user?.email,
+          photoURL: user?.photoURL,
+        },
+        { merge: true }
+      );
+      if (!userData) {
+        const userSnap = getDoc(doc(db, "users", user.uid));
+        userSnap.then(doc => doc.exists() && dispatch(loggedIn(doc.data())));
+      }
+    } else dispatch(logout())
+  }, [user, userData, dispatch]);
+
+  if (loading) return <Loading />
+  if (!user) return <Login />;
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+      </Route>
+    </Routes>
   );
 }
 
