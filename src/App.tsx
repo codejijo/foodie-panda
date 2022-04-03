@@ -32,7 +32,7 @@ function App() {
         userSnap.then(doc => doc.exists() && dispatch(loggedIn(doc.data())));
       }
     } else dispatch(logout())
-  }, [user]);
+  }, [user, userData, dispatch]);
 
   if (loading) return <Loading />
   if (!user) return <Login />;
