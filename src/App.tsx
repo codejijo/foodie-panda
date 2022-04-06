@@ -32,7 +32,8 @@ function App() {
         userSnap.then(doc => doc.exists() && dispatch(loggedIn(doc.data())));
       }
     } else dispatch(logout())
-  }, [user, userData, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   if (loading) return <Loading />
   if (!user) return <Login />;
